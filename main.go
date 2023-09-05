@@ -41,8 +41,11 @@ func Run(ctx context.Context, target string, command string, expectedOutput stri
 			return
 		}
 
-		if string(output) != strings.TrimSpace(expectedOutput) {
-			errChan <- fmt.Errorf("expected output %s but got %s", expectedOutput, string(output))
+		outputString := strings.TrimSpace(string(output))
+		expectedOutputString := strings.TrimSpace(expectedOutput)
+
+		if outputString != expectedOutputString {
+			errChan <- fmt.Errorf("expected output \"%s\" but got \"%s\"", expectedOutputString, outputString)
 			return
 		}
 
