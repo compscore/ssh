@@ -18,9 +18,9 @@ func Run(ctx context.Context, target string, command string, expectedOutput stri
 	}
 
 	errChan := make(chan error, 1)
-	defer close(errChan)
 
 	go func() {
+		defer close(errChan)
 		client, err := ssh.Dial("tcp", target, config)
 		if err != nil {
 			errChan <- err
