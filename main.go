@@ -17,6 +17,10 @@ func Run(ctx context.Context, target string, command string, expectedOutput stri
 		HostKeyCallback: ssh.InsecureIgnoreHostKey(),
 	}
 
+	if !strings.Contains(target, ":") {
+		target = fmt.Sprintf("%s:22", target)
+	}
+
 	errChan := make(chan error, 1)
 
 	go func() {
